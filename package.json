@@ -21,7 +21,6 @@
     "moment": "^2.24.0",
     "mongoose": "^5.9.6",
     "morgan": "^1.10.0",
-    "pm2": "^4.2.3",
     "require-yml": "^2.0.0",
     "swagger-ui-express": "^4.1.4"
   },
