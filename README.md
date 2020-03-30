@@ -4,8 +4,7 @@
 A REST API for voting system
 **Characteristic:**
 - MVC as a design pattern
-
-> Uses MongoDB as its database and Passport for authentication with (jwt).
+- Basic token-based authentication (do not use this method, it is just an example)
 
 ## Main tools used
 - [Express](https://expressjs.com/)
