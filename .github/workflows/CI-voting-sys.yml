@@ -6,10 +6,6 @@ on:
     branches:
       - master
 
-  push:
-    branches:
-      - '*'
-
 jobs:
   security-audit:
     name: Running npm audit
