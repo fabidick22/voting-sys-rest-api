@@ -1,14 +1,10 @@
-name: CI process for time-tracker app
+name: CI-voting-sys
 
 on:
   pull_request:
     types: [opened, edited, reopened, synchronize]
     branches:
       - master
-
-  push:
-    branches:
-      - '*'
 
 jobs:
   security-audit:

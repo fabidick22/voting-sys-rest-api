@@ -1,5 +1,5 @@
 # Voting System REST API
-[![Build Status](https://github.com/actions/hello-world/workflows/Greet%20Everyone/badge.svg)](https://github.com/actions/hello-world/)
+![CI-voting-sys](https://github.com/fabidick22/voting-sys-rest-api/workflows/CI-voting-sys/badge.svg)
 
 A REST API for voting system
 **Characteristic:**
