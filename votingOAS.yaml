@@ -311,17 +311,14 @@ components:
           type: integer
           format: int64
           readOnly: true
-        employee:
+        user:
           type: string
           format: uuid
-          example: 5e7fbedbe02ef482ca352d8e
+          example: username
         area:
           type: string
           format: uuid
           example: 5e7fbedbe02ef482ca352d8e
-        vote:
-          type: integer
-          format: int32
         comment:
           type: string
           example: Comments
