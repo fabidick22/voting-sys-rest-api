@@ -6,16 +6,20 @@ const moment = require("moment");
 
 function saveVote(req, res) {
     let vote = new Vote();
+
     vote.user = req.body.user;
     vote.area = req.body.area;
-    vote.vote = req.body.vote;
     vote.comment = req.body.comment;
     vote.createDate = req.body.createDate;
-
+    if (req.user.username === req.body.user){
+        res.status(400).send({type: "warning", message: "You can't self-assign yourself a vote"});
+        return;
+    }
     vote.save((err, voteSaved) => {
         if (err) res.status(500).send({message: `Error to save ${err}`});
         res.status(200).send({vote: voteSaved})
     });
+
 }
 
 function getVote(id) {
@@ -27,7 +31,7 @@ function getUserById(id) {
         return doc
     });
 }
-const mongoose = require("mongoose");
+
 function getVotes(req, res) {
     let queryData = req.query;
     if (Object.entries(queryData).length  !== 0){

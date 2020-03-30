@@ -8,6 +8,7 @@ function createToken(user) {
     const payload = {
         sub: user._id,
         role: user.role,
+        username: user.username,
         iat: moment().unix(),
         exp: moment().add(config.get("security.jwtTokenExp"), 'hours').unix()
     };
