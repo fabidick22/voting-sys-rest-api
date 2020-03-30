@@ -1,0 +1,31 @@
+{
+  "name": "voting-sys",
+  "version": "1.0.0",
+  "description": "Voting system",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon --inspect=0.0.0.0 app.js",
+    "serve": "pm2 start app.js -i max --name app --no-daemon",
+    "test": "npm test"
+  },
+  "author": "Dickson Armijos <fabidick22@hotmail.es>",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^4.0.1",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.19.0",
+    "convict": "^5.2.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jwt-simple": "^0.5.6",
+    "moment": "^2.24.0",
+    "mongoose": "^5.9.6",
+    "morgan": "^1.10.0",
+    "pm2": "^4.2.3",
+    "require-yml": "^2.0.0",
+    "swagger-ui-express": "^4.1.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}

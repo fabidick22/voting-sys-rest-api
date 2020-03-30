@@ -1,0 +1,375 @@
+openapi: 3.0.1
+
+info:
+  title: Voting System
+  description: 'Voting system to assess employee performance'
+  contact:
+    email: fabidick22@hotmail.es
+  version: 1.0.0
+
+servers:
+- url: http://localhost:3000/api/v1
+  description: Development Server
+- url: https://api.voting-sys.com/api/v1
+  description: Production Server (test)
+
+paths:
+  /votes:
+    post:
+      tags:
+      - vote
+      summary: Give a vote
+      operationId: placeOrder
+      requestBody:
+        description: Save an employee's vote
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/requestBodies/VoteBody'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vote'
+        400:
+          $ref: '#/components/responses/BadRequest'
+      security:
+        - bearerAuth: []
+    get:
+      tags:
+      - vote
+      summary: Get votes by employees o area
+      description: Returns a single employee
+      operationId: getVotesByEmployee
+      parameters:
+      - name: category
+        in: query
+        description: Filter by employees.
+        required: true
+        schema:
+          type: string
+          enum: [employees, area]
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vote'
+        404:
+          $ref: '#/components/responses/BadRequest'
+        500:
+          $ref: '#/components/responses/ServerError'
+      security:
+      - bearerAuth: []
+  /areas:
+    get:
+      tags:
+      - area
+      summary: Get available areas
+      description: Returns all areas
+      operationId: getAreas
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Area'
+        404:
+          $ref: '#/components/responses/BadRequest'
+        500:
+          $ref: '#/components/responses/ServerError'
+      security:
+      - bearerAuth: []
+    post:
+      tags:
+      - area
+      summary: Add areas
+      operationId: addArea
+      requestBody:
+        description: Save an area
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Area'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Area'
+        500:
+          description: Invalid Area
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+      security:
+        - bearerAuth: []
+  /users/signUp:
+    post:
+      tags:
+      - user
+      summary: Create user
+      description: This endpoint is used for testing (bad implementation).
+      operationId: createUser
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      security:
+        - bearerAuth: []
+  /users/signIn:
+    post:
+      tags:
+      - user
+      summary: Sign-in into the system
+      operationId: loginUser
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/requestBodies/UserBody'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+        400:
+          description: Invalid username/password supplied
+          content: {}
+  /users:
+    get:
+      tags:
+      - user
+      summary: Get all users
+      operationId: getUsers
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                $ref: '#/components/schemas/User'
+        400:
+          description: Invalid username supplied
+          content: {}
+        404:
+          description: User not found
+          content: {}
+      security:
+        - bearerAuth: []
+  /users/employees:
+    get:
+      tags:
+        - user
+      summary: Get list of employees
+      operationId: getUsers
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                $ref: '#/components/schemas/User'
+        400:
+          description: Invalid username supplied
+          content: {}
+        404:
+          description: User not found
+          content: {}
+      security:
+        - bearerAuth: []
+components:
+  schemas:
+    Vote:
+      type: object
+      properties:
+        _id:
+          type: integer
+          format: int64
+          readOnly: true
+        username:
+          type: string
+          example: username
+        area:
+          $ref: '#/components/schemas/Area'
+        vote:
+          type: integer
+          format: int32
+          example: 1
+          readOnly: true
+        comment:
+          type: string
+          example: Comments
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - employee
+      - area
+      - vote
+      - comment
+    User:
+      type: object
+      properties:
+        _id:
+          type: integer
+          format: int64
+          readOnly: true
+        email:
+          type: string
+          format: email
+          writeOnly: true
+        username:
+          type: string
+          example: by-default
+        password:
+          type: string
+          format: password
+          writeOnly: true
+        role:
+          type: string
+          default: employee
+          enum: [admin, employee]
+        signUpDate:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - email
+      - username
+      - password
+      - role
+    Area:
+      type: object
+      properties:
+        _id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          example: Motivation
+        description:
+          type: string
+          example: Description Data
+      required:
+      - name
+      - description
+    ErrorMessage:
+      type: object
+      properties:
+        code:
+          type: string
+          example: 500
+        type:
+          type: string
+          example: Error
+        message:
+          type: string
+          exmaple: ValidationError-> description-> Path `description` is required.
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  requestBodies:
+    VoteBody:
+      type: object
+      properties:
+        _id:
+          type: integer
+          format: int64
+          readOnly: true
+        employee:
+          type: string
+          format: uuid
+          example: 5e7fbedbe02ef482ca352d8e
+        area:
+          type: string
+          format: uuid
+          example: 5e7fbedbe02ef482ca352d8e
+        vote:
+          type: integer
+          format: int32
+        comment:
+          type: string
+          example: Comments
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+        - employee
+        - area
+        - vote
+        - comment
+    UserBody:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+          writeOnly: true
+      required:
+        - email
+        - password
+
+  responses:
+    NotFound:
+      description: The specified resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+    BadRequest:
+      description: The server cannot or will not process the request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+    ServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'

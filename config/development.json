@@ -1,0 +1,8 @@
+{
+    "db": {
+        "name": "admin"
+    },
+    "security":{
+        "jwtSecret": "Ud52jZrkBoK1h32RWjwafsxpCyrY0YkyIZrC0ANvt9nNOU3nm3umrvitJNldU5CUMGjkVQzZBNb46XYvcfIpTujqmHlntx0qm5UuVZ4gmdgv5HN06J0W2vm3ORIAVDEZ"
+    }
+}
