@@ -2,11 +2,12 @@
 ![CI-voting-sys](https://github.com/fabidick22/voting-sys-rest-api/workflows/CI-voting-sys/badge.svg)
 
 A REST API for voting system
+
 **Characteristic:**
 - MVC as a design pattern
 - Basic token-based authentication (do not use this method, it is just an example)
 
-## Main tools used
+### Main tools used
 - [Express](https://expressjs.com/)
 - [Mongodb](https://www.mongodb.com)
 - [Mongoose]()
@@ -14,7 +15,7 @@ A REST API for voting system
 - [Morgan](https://github.com/expressjs/morgan)
 - [Docker](https://www.docker.com/)
 
-### Getting Started
+## Getting Started
 Clone this repository and install dependencies
 ```
 > git clone git@github.com:fabidick22/voting-sys-rest-api.git
@@ -69,9 +70,13 @@ From the root directory:
 > npm start # dev environment
 ```
 
-### API documentation
-Checkout `localhost:3000/docs`.
+### Functionality test
+After having the database and your API running, you can test the functionalities from the UI provided by swagger-UI.
+You must bear in mind that first you have to create a user from this endpoint (`/users/signUp`) then you will have a token that you must set in the swagger authorizer to be able to use the other endpoits
 
+## API documentation
+Checkout `localhost:3000/docs`.
+Base path: `localhost:3000/api/v1`
 
 ## Module structure
 ```

@@ -7,7 +7,7 @@ const authorization = require('../middlewares/auth');
 
 // User EndPoint
 usersV1.get("/", authorization(["admin", "employee"]), userCtrl.all);
-usersV1.get("/employees", authorization(["admin", "employee"]), userCtrl.allEmployees);
+usersV1.get("/employees", authorization(["admin"]), userCtrl.allEmployees);
 usersV1.post("/signUp", authCtrl.signUp);
 usersV1.post("/signIn", authCtrl.signIn);
 

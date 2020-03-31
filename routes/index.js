@@ -10,7 +10,7 @@ const user = require("./user");
 // EndPoint list
 // routes.use("/areas", authorization(["admin", "employee"]), areas.v1);
 routes.use("/areas", authorization(["admin", "employee"]), areas.v1);
-routes.use("/votes", authorization(["admin", "employee"]), votes.v1);
+routes.use("/votes", votes.v1);
 routes.use("/users", user.v1);
 
 // Support multiple versions
