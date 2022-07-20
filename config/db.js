@@ -7,7 +7,7 @@ const config = require('../config.js');
 const dbURI = `mongodb://${config.get("db.username")}:${config.get("db.pass")}@${config.get("db.host")}`;
 
 // Create the database connection
-mongoose.connect(dbURI, {useNewUrlParser: true, poolSize: config.get("db.pool"), dbName: config.get("db.name")});
+mongoose.connect(dbURI, {useNewUrlParser: true, poolSize: config.get("db.pool"), dbName: config.get("db.name"), reconnectTries: 20, reconnectInterval: 1000 });
 
 // CONNECTION EVENTS
 // When successfully connected
